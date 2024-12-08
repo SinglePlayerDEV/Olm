@@ -1,0 +1,47 @@
+#include <iostream>
+#include <string>
+#include<algorithm>
+#include <conio.h>
+#include <vector>
+
+using namespace std;
+
+int main() {
+   
+    string stroka;
+    char schet;
+
+    while (stroka.length() < 250) {
+        schet = _getch();
+
+        if (schet == '\r') {
+            break;
+        }
+        if (schet >= 'a' && schet <= 'z')
+            stroka += schet;
+        cout << schet;
+    }
+    cout << endl;
+    vector<int> arr(256, 0);
+    for (char j : stroka)
+    {
+        arr[j - 'a']++;
+    }
+
+    char z = 'z';
+
+    auto max = max_element(begin(arr), end(arr));
+
+    for (int i = 25; i >= 0; i--)
+    {
+        if (arr[i] == *max) {
+            z = 'a' + i;
+        }
+    }
+    for (int i = 0; i < *max; i++) 
+    {
+        cout << z;
+    }
+  
+    return 0;
+}
