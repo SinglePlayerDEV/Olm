@@ -1,0 +1,45 @@
+#include<iostream> 
+#include<math.h> 
+
+using namespace std;
+
+int main()
+{
+	int num1 = 0;
+	int num2 = 0;
+	int kol = 0;
+	while (true)
+	{
+		cin >> num1;
+		cin >> num2;
+		if (1 <= num1 && num1 <= 8 && 1 <= num2 && num2 <= 20)
+			break;
+	}
+			
+	int longer = pow(10, num1);
+	int max = longer - 1;
+	 
+	int min = longer / 10;
+
+	for (int i = min; i <= max; i++)
+	{
+		int x = i;
+		int chet = 0, nechet = 0, numm = 0;
+		for (int j = num1; j >= 1; j--)
+		{
+		
+			numm = x % 10;
+			if (j % 2 == 0)
+				chet += numm;
+			else
+				nechet += numm;
+			x /= 10;
+		}
+		if (abs(chet - nechet) % num2 == 0)
+		{
+			kol++;
+		}
+	}
+	cout << kol << endl;
+	return 0;
+}
