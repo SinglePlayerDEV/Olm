@@ -1,0 +1,87 @@
+#include <iostream>
+#include <stack>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+struct Gold {
+    int num;
+    bool a = true;
+};
+
+int str, stl;
+vector<vector<Gold>> arr;
+vector<vector<bool>> proverka;
+
+int arr1[] = { -1, 0, 1, 0 };
+int arr2[] = { 0, 1, 0, -1 };
+
+int prover(int x, int y) {
+    stack<pair<int, int>> superlist;
+
+    superlist.push({ x, y });
+
+    proverka[x][y] = true;
+
+    int value = arr[x][y].num;
+
+    while (!superlist.empty()) {
+
+        int xx = superlist.top().first;
+        int yy = superlist.top().second;
+        superlist.pop();
+
+        for (int i = 0; i < 4; i++) {
+            int xs = xx + arr1[i];
+            int xy = yy + arr2[i];
+
+            if (xs >= 0 && xy < stl  &&xy >= 0 && xs < str   && !proverka[xs][xy] && arr[xs][xy].a) {
+                proverka[xs][xy] = true;
+                value += arr[xs][xy].num;
+                superlist.push({ xs, xy });
+            }
+        }
+    }
+
+    return value;
+}
+
+int main() {
+
+    string pro;
+
+    while (true) {
+        cin >> str >> stl;
+        if (1 <= str && stl >= 1 && str <= 100 && stl <= 100) {
+            break;
+        }
+    }
+
+    arr = vector<vector<Gold>>(str, vector<Gold>(stl));
+    for (int i = 0; i < str; i++) {
+        for (int j = 0; j < stl; j++) {
+            cin >> pro;
+            if (pro == "-") {
+                pro = "0";
+                arr[i][j].a = false;
+            }
+            arr[i][j].num = stoi(pro);
+        }
+    }
+
+    proverka = vector<vector<bool>>(str, vector<bool>(stl, false));
+    int maxSum = 0;
+
+    for (int i = 0; i < str; i++) {
+        for (int j = 0; j < stl; j++) {
+            if (!proverka[i][j] && arr[i][j].a) {
+                maxSum = max(maxSum, prover(i, j));
+            }
+        }
+    }
+
+    cout << maxSum;
+
+    return 0;
+}
