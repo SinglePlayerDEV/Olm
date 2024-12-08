@@ -1,0 +1,24 @@
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+int main() {
+    int x0, y0, N, R;
+    int x = 0;
+
+    cin >> x0 >> y0 >> N >> R;
+    
+    for (int i = 0; i < N; ++i) {
+        if (N < 0 or N>100) {
+            break;
+        }
+        int x1, y1;
+        cin >> x1 >> y1;
+        if (sqrt(pow((x1 - x0), 2) + pow((y1 - y0), 2)) > R) {
+            x++;
+        }
+    }
+    cout << x;
+    return 0;
+}
