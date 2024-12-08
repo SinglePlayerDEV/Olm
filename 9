@@ -1,0 +1,51 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+   
+    int str;
+    int stl;
+    while (true)
+    {
+        cin >> str;
+        cin >> stl;
+        if (1 <= str && 1 <= stl && str <= 300 && stl <= 300){
+            break;
+    }
+    }
+    vector<vector<int>>arr(str, vector<int>(stl));
+   
+    for (int i = 0; i < str; i++)
+    {
+        for (int j = 0; j < stl; j++)
+        {
+            cin >> arr[i][j];
+        }
+    }
+   
+    int maxSum = INT_MIN;
+   
+    for (int left = 0; left < stl; left++) {
+        vector<int> temp(str, 0);
+
+        for (int right = left; right < stl; right++) {
+            for (int i = 0; i < str; i++) {
+                temp[i] += arr[i][right];
+            }
+            int sum = 0;
+            int maxEndHere = 0;
+            for (int sumVal : temp) {
+                maxEndHere = max(maxEndHere + sumVal, sumVal);
+                sum = max(sum, maxEndHere);
+            }
+
+            maxSum = max(maxSum, sum);
+        }
+    }
+  
+    cout << maxSum;
+    return 0;
+}
