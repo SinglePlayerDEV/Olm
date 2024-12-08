@@ -1,0 +1,56 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+bool isSafe(int x, int y, vector<vector<int>>& board, int N) {
+   
+    int dx[] = { -2, -2, -1, -1, 1, 1, 2, 2 };
+    int dy[] = { -1, 1, -2, 2, -2, 2, -1, 1 };
+    for (int i = 0; i < 8; i++) {
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+        if (nx >= 0 && ny >= 0 && nx < N && ny < N && board[nx][ny] == 1)
+            return false;
+    }
+    return true;
+}
+
+
+int placeKnights(int k, int start, int N, vector<vector<int>>& board) {
+    if (k == 0) {
+       
+        return 1;
+    }
+    int count = 0;
+    for (int i = start; i < N * N; i++) {
+        int x = i / N;
+        int y = i % N;
+        if (isSafe(x, y, board, N)) {
+            board[x][y] = 1; 
+            count += placeKnights(k - 1, i + 1, N, board);
+            board[x][y] = 0;
+        }
+    }
+    return count;
+}
+
+int main() {
+  
+    int N = 0, K = 0;
+    while (true)
+    {
+
+        cin >> N;
+        cin >> K;
+        if (1 <= N && N <= 10 && 1 <= K && K <= N * N)
+        {
+            break;
+        }
+       
+    }
+    vector<vector<int>> board(N, vector<int>(N, 0));
+    cout << placeKnights(K, 0, N, board) << endl;
+    return 0;
+
+}
