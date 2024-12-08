@@ -1,0 +1,31 @@
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+int main()
+{
+	const int max = 10;
+	int arr[max];
+	int x = 0;
+
+	for (int i = 0; i < size(arr); i++)	{
+			cin >> arr[i];
+			if (arr[i] >= 0 && arr[i] <= 10) {
+				continue;
+			}
+			else {
+				break;
+			}
+	}
+ 
+	auto itog = minmax_element(begin(arr), end(arr));
+	for (int i = 0; i < size(arr); i++)	{
+		if (arr[i] == *itog.first || arr[i] == *itog.second){
+			x++;
+		}
+
+	}
+	cout << x;
+	return 0;
+}
